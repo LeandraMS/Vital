@@ -1,0 +1,49 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block 'head' %}
+<link href="{% static 'usuarios/css/css.css' %}" rel="stylesheet">
+   
+{% endblock 'head' %}
+
+
+{% block 'conteudo' %}
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        {% if user.is_authenticated %}
+            <h3 class="font-destaque">Olá, {{ user.first_name}}</h3>
+        <br>
+        <h3 class="font-destaque">Seja muito bem vindo ao nosso sistema!</h3>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align: center">
+                <img src="{% static 'geral/img/logo.png' %}" alt="">
+                <h3>Vital</h3>
+            </div>
+
+            <div class="col-md-3">
+                <br>
+                <ul>
+                    <li><a  href="{% url 'sair' %}">Sair</a></li>
+                  </ul>
+                <br>
+        {% else %}
+            <h3 class="font-destaque">Olá, visitante</h3>
+       
+        <br>
+        <h3 class="font-destaque">Seja muito bem vindo ao nosso sistema!</h3>
+
+        <div class="row">
+            <div class="col-md-3" style="text-align: center">
+                <img src="{% static 'geral/img/logo.png' %}" alt="">
+                <h3>Vital</h3>
+            </div>
+
+            <div class="col-md-3">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

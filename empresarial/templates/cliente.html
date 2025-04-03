@@ -1,0 +1,63 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block 'head' %}
+    <link href="{% static 'exames/css/css.css' %}" rel="stylesheet">
+    <link href="{% static 'exames/css/gerenciar_pedidos.css' %}" rel="stylesheet">
+    <link href="{% static 'exames/css/gerenciar_exames.css' %}" rel="stylesheet">
+{% endblock 'head' %}
+
+
+{% block 'conteudo' %}
+    <br> 
+    <br>
+    <div class="container">
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <h3 class="font-destaque">{{cliente.get_full_name}}</h3>
+        <p>{{cliente.email}}</p>
+        <div class="card card-view">
+            
+            <div class="sub-card">
+                <h3>Exames de sangue</h3>
+                <hr>
+                <br>
+                {% for exame in exames  %}
+                    {% if  exame.exame.tipo == 'S'%}
+                        <div class="row">
+                            <div class="col-md"><h3>{{exame.exame.nome}}</h3></div>
+                            <div class="col-md">{{exame.badge_template}}</div>
+                            <div class="col-md">
+                                <a href="{% url 'exame_cliente' exame.id %}" class="btn btn-light">Abrir</a>                            </div>
+                        </div>
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            <br>
+            <div class="sub-card">
+                <h3>Exames de imagem</h3>
+                <hr>
+                <br>
+                {% for exame in exames  %}
+                    {% if  exame.exame.tipo == 'I'%}
+                        <div class="row">
+                            <div class="col-md"><h3>{{exame.exame.nome}}</h3></div>
+                            <div class="col-md">{{exame.badge_template}}</div>
+                            <div class="col-md"><a href="#" class="btn btn-light">Abrir</a></div>
+                        </div>
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+        </div>
+
+    </div>
+
+{% endblock 'conteudo' %}
