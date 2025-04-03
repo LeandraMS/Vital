@@ -1,0 +1,15 @@
+.linha-tabela{
+    background-color: var(--dark-color);
+    height: 20px;
+}
+
+td, th{
+    padding: 20px;
+}
+
+.card-view{
+    text-align: center;
+    padding: 0;
+    border: none;
+    height: 70vh;
+}

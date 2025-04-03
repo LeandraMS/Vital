@@ -1,0 +1,43 @@
+body{
+
+    background-image: url('/static/geral/img/bg2.png');
+    background-size: cover;
+
+}
+
+
+.bg-select{
+    background-color: transparent;
+    border-color: var(--differential-color);
+}
+
+.card{
+    background-color: rgba(217, 217, 217, .14);
+    color: white;
+    padding: 15px;
+}
+
+.previa-preco{
+    float: right;
+    font-weight: bold;
+}
+
+.tamanho-2{
+    width: 50%;
+}
+
+.btn-secundario{
+
+    background-color: #838FFF;
+    color: black;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-secundario-outline{
+    background-color: transparent;
+    border-color: #838FFF;
+    padding: 10px;
+}

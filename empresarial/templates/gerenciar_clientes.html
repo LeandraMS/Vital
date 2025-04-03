@@ -1,0 +1,64 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block 'head' %}
+    <link href="{% static 'exames/css/css.css' %}" rel="stylesheet">
+    <link href="{% static 'exames/css/gerenciar_pedidos.css' %}" rel="stylesheet">
+{% endblock 'head' %}
+
+
+{% block 'conteudo' %}
+    <br> 
+    <br>
+    <div class="container">
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="row">
+            <div class="col-md">
+                <form action="{% url 'gerenciar_clientes' %}" method="GET">
+                <label for="">Nome</label>
+                <input type="text" class="form-control" name="nome" value="{{nome_completo}}">
+            </div>
+            <div class="col-md">
+                <label for="">E-mail</label>
+                <input type="text" class="form-control" name="email" value="{{email}}">
+            </div>
+            <div class="col-md">
+                <br>
+                <input type="submit" class="btn-default">
+                </form>
+
+            </div>
+        </div>
+        <br>
+        <div class="card card-view">
+            <table>
+                <tr>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>CPF</th>
+                </tr>
+
+                {% for cliente in clientes %}
+                    <tr class="linha-tabela">
+                        <td><a href="{% url 'cliente' cliente.id %}">{{cliente.get_full_name}}</a></td>
+                        <td>{{cliente.email}}</td>
+                        
+                        <td>
+                        
+                        </td>
+                    </tr>
+                {% endfor %}
+               
+              </table>
+              
+            
+        </div>
+
+    </div>
+
+{% endblock 'conteudo' %}

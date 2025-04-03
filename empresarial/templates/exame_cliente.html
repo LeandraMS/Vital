@@ -1,0 +1,72 @@
+{% extends "bases/base.html" %}
+{% load static %}
+
+{% block 'head' %}
+    <link href="{% static 'exames/css/css.css' %}" rel="stylesheet">
+    <link href="{% static 'exames/css/gerenciar_pedidos.css' %}" rel="stylesheet">
+    <link href="{% static 'exames/css/gerenciar_exames.css' %}" rel="stylesheet">
+{% endblock 'head' %}
+
+
+{% block 'conteudo' %}
+    <br>
+    <div class="container">
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="row">
+        <h3 class="font-destaque">{{exame.usuario.get_full_name}}</h3>
+        <p>{{exame.usuario.email}}</p>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="{% url 'alterar_dados_exame' exame.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}                    <input type="FILE" value="Alterar PDF" class="btn-secundario" name="resultado">
+               
+                    <br>
+                    <br>
+                    {% if exame.resultado %}
+                        <a style="width: 100%;" href="" target="__blank"><div  style="width: 100%;" id="pdf-container">Seu exame aqui</div></a>
+                    {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h3>Status</h3>
+
+                <select name="status" id="" class="form-select">
+                    <option style="color: black;" {% if exame.status == "E" %}selected{% endif %} value="E">Em análise</option>
+                    <option style="color: black;" {% if exame.status == "F" %}selected{% endif %} value="F">Finalizado</option>
+                </select>
+                <br>
+                <input type="checkbox" name="requer_senha" id="" {% if exame.requer_senha %}checked{% endif %}><label for="">Requer senha para acessar ?</label>                <br>
+                <br>
+
+                <input type="submit" value="Salvar" class="btn-default">
+                </form>
+                <a style="text-decoration: none;" href="{% url 'gerar_senha' exame.id %}" class="btn-secundario">Gerar senha</a>            </div>
+        </div>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script>
+
+    const container = document.getElementById('pdf-container');
+
+    pdfjsLib.getDocument('').promise.then(pdf => {
+        pdf.getPage(1).then(page => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const viewport = page.getViewport({ scale: 0.6 });
+
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            page.render({ canvasContext: context, viewport }).promise.then(() => {
+                container.appendChild(canvas);
+            });
+        });
+    });
+</script>
+
+{% endblock 'conteudo' %}
